@@ -1,5 +1,11 @@
-FROM openjdk:17-jdk-slim
-ARG JAR_FILE=target/WebApp-0.0.1-SNAPSHOT.jar
-COPY ${JAR_FILE} web_app.jar
+FROM eclipse-temurin:21-jdk
+
+WORKDIR /app
+
+COPY . .
+
+RUN ./mvnw clean package -DskipTests
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "web_app.jar"]
+
+CMD ["java","-jar","target/*.jar"]
